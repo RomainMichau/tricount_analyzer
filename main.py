@@ -23,7 +23,7 @@ def get_tricount_model(tricount_id):
 
 
 def main():
-    tricount = get_tricount_model("UxGBuYKQyszoneLmU")
+    tricount = get_tricount_model("BLK")
     Controller(8080, TricountAnalyzer(tricount))
 
 
