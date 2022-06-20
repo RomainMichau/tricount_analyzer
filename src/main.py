@@ -1,6 +1,6 @@
 import requests
 import xml.etree.ElementTree as ET
-
+import argparse
 from controller import Controller
 from tricount_anaylzer import TricountAnalyzer
 from tricount_entity import Tricount
@@ -23,7 +23,13 @@ def get_tricount_model(tricount_id):
 
 
 def main():
-    tricount = get_tricount_model("BLK")
+    parser = argparse.ArgumentParser(description='parse arg')
+    parser.add_argument('--tricount_id', dest='tricount_id', type=str,
+                        help='sum the integers (default: find the max)')
+    args = parser.parse_args()
+    tricount_id = args.tricount_id
+    print(tricount_id)
+    tricount = get_tricount_model(args.tricount_id)
     Controller(8080, TricountAnalyzer(tricount))
 
 
