@@ -12,7 +12,7 @@ class Controller:
         self.analyzer = analyzer
         self.app = Flask(__name__)
         self.init_route()
-        self.app.run(port=port)
+        self.app.run(port=port, host="0.0.0.0")
 
     def init_route(self):
         @self.app.route("/", methods=methods)
