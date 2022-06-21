@@ -1,3 +1,4 @@
 requests
 flask
 python-dateutil
+psycopg2

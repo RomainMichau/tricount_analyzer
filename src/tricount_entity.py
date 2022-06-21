@@ -36,11 +36,13 @@ class Tricount:
     title: str
     users: list[str]
     expenses: list[Expense]
+    uuid: str
 
     def __init__(self, xml_str: str):
         root = xml.fromstring(xml_str)
         self.currency = root.find("currency").text
         self.title = root.find("title").text
+        self.uuid = root.find("uuid").text
         self.title = root.find("description").text
         self.users = [user.find("name").text for user in root.find("users").findall("user")]
         self.expenses = list()
