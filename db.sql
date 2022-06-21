@@ -21,14 +21,14 @@ CREATE TABLE public.tricount (
 
 CREATE TABLE public.expenses (
 	id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
-	tr_id int8 NOT NULL,
-	addeddate varchar NOT NULL,
-	tr_exp_id int8 NOT NULL,
+    exp_uuid uuid NOT NULL,
+	tr_uuid uuid NOT NULL,
+	addeddate timetz NOT NULL,
 	amount varchar NOT NULL,
 	"name" varchar NOT NULL,
 	CONSTRAINT expenses_pk PRIMARY KEY (id),
-	CONSTRAINT expenses_un UNIQUE (tr_exp_id),
-	CONSTRAINT expenses_fk FOREIGN KEY (tr_id) REFERENCES public.tricount(id)
+	CONSTRAINT expenses_un UNIQUE (exp_uuid),
+	CONSTRAINT expenses_fk FOREIGN KEY (tr_uuid) REFERENCES public.tricount(tr_uuid)
 );
 
 
@@ -40,9 +40,9 @@ CREATE TABLE public.expenses (
 
 CREATE TABLE public.impacts (
 	id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
-	exp_id int8 NOT NULL,
+    exp_uuid uuid NOT NULL,
 	"User" varchar NOT NULL,
 	amount numeric NOT NULL,
 	CONSTRAINT impacts_pk PRIMARY KEY (id),
-	CONSTRAINT impacts_fk FOREIGN KEY (exp_id) REFERENCES public.expenses(id)
+	CONSTRAINT impacts_fk FOREIGN KEY (exp_uuid) REFERENCES public.expenses(exp_uuid)
 );

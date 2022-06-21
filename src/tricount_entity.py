@@ -3,6 +3,7 @@ from datetime import date, datetime
 
 from dateutil import parser
 
+
 class Impact:
     amount: float
     user: str
@@ -16,15 +17,17 @@ class Expense:
     added_date: datetime
     amount: str
     name: str
+    uuid: str
     paied_by: str
     paied_date: datetime
     repartition: list[Impact]
 
     def __init__(self, added_date: str, amount: str, name: str, paied_by: str, paied_date: str, transaction_type: str,
-                 repartition: list[Impact]) -> None:
+                 repartition: list[Impact], uuid: str) -> None:
         self.added_date = parser.parse(added_date)
         self.amount = amount
         self.name = name
+        self.uuid = uuid
         self.paied_by = paied_by
         self.paied_date = parser.parse(paied_date)
         self.repartition = repartition
@@ -73,9 +76,10 @@ class Tricount:
                     paied_date = expense.find("addedDate").text
                 else:
                     paied_date = expense.find("addedDate").text
-                new_exp = Expense(expense.find("addedDate").text, expense.find("amount").text, expense.find("name").text,
-                              expense.find("paiedBy").text, paied_date,
-                              expense.find("transactionType").text, impacts)
+                new_exp = Expense(expense.find("addedDate").text, expense.find("amount").text,
+                                  expense.find("name").text,
+                                  expense.find("paiedBy").text, paied_date,
+                                  expense.find("transactionType").text, impacts, expense.find("uuid").text)
             except Exception as e:
                 print(f"Issue with expense:{expense_id}")
                 raise e
