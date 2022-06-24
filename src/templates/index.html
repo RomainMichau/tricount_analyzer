@@ -12,7 +12,7 @@ document.write('<a href="' + window.location.protocol + '//' + window.location.h
 
 <h3>Already imported dashboards:</h3>
 {% for tricount in tricounts %}
-    <div class="flash">{{ tricount.title }}: {{ tricount.tr_id }}</div>
+<div class="flash"><b>{{ tricount.title }}:</b> {{ tricount.tr_id }}</div>
   {% endfor %}
 <h3>Add your tricount</h3>
 You can find the tricount ID in the link used to share the tricount
