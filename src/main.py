@@ -10,6 +10,7 @@ from tricount_entity import Tricount
 def get_tricount_model(tricount_id):
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
+        'apisubversion': '102220'
     }
 
     data = f"getTricount=<tricount><id>0</id><random>{tricount_id}</random><description></description><users/><expenses/><versionNumber>0</versionNumber></tricount>"

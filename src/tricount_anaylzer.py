@@ -40,10 +40,10 @@ class TricountAnalyzer:
     def get_all_expenses_per_date_per_user(self, user: str):
         res = []
         for expense in self.tricount.expenses:
-            for impact in expense.repartition:
+            for impact in expense.impacts:
                 if impact.user == user:
                     date_unit = int(expense.paied_date.timestamp()) * 1000
-                    res.append([float(impact.amount), date_unit])
+                    res.append([float(impact.amount_tr_currency), date_unit])
         return res
 
     def get_users(self):
