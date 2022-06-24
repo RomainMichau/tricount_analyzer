@@ -7,7 +7,6 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 methods = ('GET', 'POST')
 
-
 class Controller:
 
     def __init__(self, port, api_client: ApiClient, sql_client: SqlClient, tricount_nb_threshold: int,

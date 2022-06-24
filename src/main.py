@@ -1,12 +1,15 @@
+import logging
+
 import requests
 import xml.etree.ElementTree as ET
 import argparse
 from controller import Controller
 from src.apli_client import ApiClient
+from src.scheduler import Scheduler
 from src.sql_client import SqlClient
 from tricount_entity import Tricount
 
-
+logging.getLogger().setLevel(logging.INFO)
 def get_tricount_model(tricount_id):
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -45,6 +48,7 @@ def main():
     args = parser.parse_args()
     api_client = ApiClient()
     sql_client = SqlClient(args.db_hostname, args.db_user, args.db_password, args.db_name, args.db_port)
+    Scheduler(sql_client, api_client)
     Controller(args.self_port, api_client, sql_client, args.tricount_max_nb, args.user_password, args.admin_password)
 
 
