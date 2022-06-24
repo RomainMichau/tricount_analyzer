@@ -2,3 +2,5 @@ requests
 flask
 python-dateutil
 psycopg2
+schedule
+flask_httpauth

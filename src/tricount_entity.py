@@ -58,6 +58,7 @@ class Tricount:
         else:
             self.description = root.find("description").text
         self.uuid = root.find("uuid").text
+        self.tr_id = root.find("random").text
         self.users = [user.find("name").text for user in root.find("users").findall("user")]
         self.expenses = list()
         for expense in root.find("expenses").findall("expense"):
