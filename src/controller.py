@@ -3,7 +3,8 @@ from flask_httpauth import HTTPBasicAuth
 from src.apli_client import ApiClient
 from src.sql_client import SqlClient
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 methods = ('GET', 'POST')
 
 
@@ -15,10 +16,15 @@ class Controller:
         self.sql_client = sql_client
         self.tricount_nb_threshold = tricount_nb_threshold
         self.app = Flask(__name__)
-        self.users = users = {
+        self.users = {
             "user": generate_password_hash(user_password),
             "admin": generate_password_hash(admin_password)
         }
+        limiter = Limiter(
+            self.app,
+            key_func=get_remote_address,
+            default_limits=["30 per minute", "1000 per hour"]
+        )
         self.auth = HTTPBasicAuth()
         self.init_route()
         self.app.run(port=port, host="0.0.0.0")

@@ -4,3 +4,4 @@ python-dateutil
 psycopg2
 schedule
 flask_httpauth
+Flask-Limiter
