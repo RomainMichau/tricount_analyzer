@@ -1,8 +1,17 @@
-# run
+# Trilyzer
+## Data export
+Include a schedule which read data from tricount API and push them in a database  
+Include a webapp to add/remove tricounts from the DB
+
+
+# run locally
 ```shell
 docker build --tag tricount-analyzer-docker .    
 docker run  -p 8080:8080 tricount-analyzer-docker--tricount_id <TRICOUNT_ID>
 ```
+
+
+
 # Extract tricount data with curl
 
 Use the correct TRICOUNT_ID:
