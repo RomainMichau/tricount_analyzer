@@ -10,6 +10,8 @@ from src.sql_client import SqlClient
 from tricount_entity import Tricount
 
 logging.getLogger().setLevel(logging.INFO)
+
+
 def get_tricount_model(tricount_id):
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -39,6 +41,8 @@ def main():
                         help='db port', default="5432")
     parser.add_argument('--db_name', dest='db_name', type=str,
                         help='db name', default="tricount")
+    parser.add_argument('--refresh_rate', dest='refresh_rate', type=int,
+                        help='Interval of data refresh_rate', default=10)
     parser.add_argument('--admin_password', dest='admin_password', type=str,
                         help='Password of the user allowed to perform admin action on endpoints', required=True)
     parser.add_argument('--user_password', dest='user_password', type=str,
@@ -49,7 +53,7 @@ def main():
     api_client = ApiClient()
     sql_client = SqlClient(args.db_hostname, args.db_user, args.db_password, args.db_name, args.db_port)
     Scheduler(sql_client, api_client)
-    Controller(args.self_port, api_client, sql_client, args.tricount_max_nb, args.user_password, args.admin_password)
+    Controller(args.self_port, api_client, sql_client, args.tricount_max_nb, args.user_password, args.admin_password, args.refresh_rate)
 
 
 if __name__ == "__main__":

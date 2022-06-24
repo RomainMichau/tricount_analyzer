@@ -10,9 +10,10 @@ methods = ('GET', 'POST')
 class Controller:
 
     def __init__(self, port, api_client: ApiClient, sql_client: SqlClient, tricount_nb_threshold: int,
-                 user_password: str, admin_password: str):
+                 user_password: str, admin_password: str, refresh_rate: int):
         self.api_client = api_client
         self.sql_client = sql_client
+        self.refresh_rate = refresh_rate
         self.tricount_nb_threshold = tricount_nb_threshold
         self.app = Flask(__name__)
         self.users = {
@@ -39,7 +40,7 @@ class Controller:
         @self.auth.login_required
         def index():
             tricounts = self.sql_client.get_existing_tricounts()
-            return render_template('index.html', tricounts=tricounts)
+            return render_template('index.html', tricounts=tricounts, refresh_rate=self.refresh_rate)
 
         @self.app.route("/add_tricount", methods=["POST"])
         @self.auth.login_required
