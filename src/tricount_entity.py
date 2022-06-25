@@ -64,6 +64,8 @@ class Tricount:
         for expense in root.find("expenses").findall("expense"):
             impacts = list()
             expense_id = expense.find("id").text
+            if expense.find("transactionType").text != "NORMAL":
+                continue
             impacts_xml = expense.find("repartition").findall("impact")
             exp_currency = expense.find("currency").text
             exchange_rate = float(expense.find("exchangeRate").text)

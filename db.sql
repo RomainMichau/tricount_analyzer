@@ -13,7 +13,8 @@ CREATE TABLE public.tricount
     description varchar NOT NULL,
     tr_currency varchar NOT NULL,
     CONSTRAINT tricount_pk PRIMARY KEY (id),
-    CONSTRAINT tricount_un UNIQUE (tr_uuid)
+    CONSTRAINT tr_id_un UNIQUE (tr_uuid),
+    CONSTRAINT tricount_un UNIQUE (tr_id)
 );
 
 
