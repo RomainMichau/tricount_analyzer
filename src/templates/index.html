@@ -7,30 +7,34 @@
 <body>
 <h1>Trilyzer</h1>
 <script language="JavaScript">
-document.write('<a href="' + window.location.protocol + '//' + window.location.hostname + ':3000' + '" >Grafana dashboard</a> ' );
+    document.write('<a href="' + window.location.protocol + '//' + window.location.hostname + ':3000' + '" >Grafana dashboard</a> ');
 </script>
 
 <h3>Already imported dashboards:</h3>
-{% for tricount in tricounts %}
-<div class="flash"><b>{{ tricount.title }}:</b> {{ tricount.tr_id }}</div>
-  {% endfor %}
+<ul>
+    {% for tricount in tricounts %}
+    <li class="flash"><b>{{ tricount.title }}:</b> {{ tricount.tr_id }}</li>
+    {% endfor %}
+</ul>
 <h3>Add your tricount</h3>
 You can find the tricount ID in the link used to share the tricount
 <form action="/add_tricount" method="post">
     <label for="tricount_id">New tricount id: </label><input type="text" id="tricount_id" name="tricount_id" required
-                                                           minlength="10" maxlength="20" size="50">
+                                                             minlength="10" maxlength="20" size="50">
     <button>Add tricount</button>
 </form>
 <div></div>
 <h3>Remove tricount:</h3>
 <form action="/remove_tricount" method="post">
-    <label for="tricount_id_drop">Delete tricount id</label><input type="text" id="tricount_id_drop" name="tricount_id" required
-                                                           minlength="10" maxlength="20" size="50">
+    <label for="tricount_id_drop">Delete tricount id</label><input type="text" id="tricount_id_drop" name="tricount_id"
+                                                                   required
+                                                                   minlength="10" maxlength="20" size="50">
 
     <button>Delete tricount</button>
 </form>
 <h3>Data refresh rate:</h3> {{ refresh_rate }} min
-<h5>Code: https://github.com/RomainMichau/tricount_analyzer</h5>
+<h3>Code:</h3> <a href=" https://github.com/RomainMichau/tricount_analyzer ">
+    https://github.com/RomainMichau/tricount_analyzer</a>
 
 </body>
 </html>
