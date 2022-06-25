@@ -205,7 +205,7 @@ class SqlClient:
             return list()
         res = list()
         for r in sql_res:
-            res.append(r[0])
+            res.append(r[1])
         cur.close()
         return res
 

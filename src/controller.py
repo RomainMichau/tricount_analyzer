@@ -66,11 +66,12 @@ class Controller:
             if self.auth.current_user() != "admin":
                 return "Insufficient permissions", 403
 
-            new_tricount_id = request.form.get("tricount_id")
-            if new_tricount_id is None:
+            _tricount_id\
+                = request.form.get("tricount_id")
+            if _tricount_id is None:
                 return "Missing tricount_id param", 400
             existing_tricount = self.sql_client.get_existing_tricount_uuids()
-            if new_tricount_id not in existing_tricount:
+            if _tricount_id not in existing_tricount:
                 return "Tricount not imported", 409
-            self.sql_client.delete_tricount(new_tricount_id)
+            self.sql_client.delete_tricount(_tricount_id)
             return "K bro", 200
