@@ -8,8 +8,8 @@ from src.sql_client import SqlClient
 
 
 class Scheduler:
-    def __init__(self, sql: SqlClient, api_client: ApiClient):
-        self.__sync_interval_min = 10
+    def __init__(self, sql: SqlClient, api_client: ApiClient, refresh_rate: int):
+        self.__sync_interval_min = refresh_rate
         self.sql = sql
         self.api_client = api_client
         thread = threading.Thread(target=self.run, args=())
