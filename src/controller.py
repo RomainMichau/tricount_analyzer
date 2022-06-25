@@ -5,7 +5,9 @@ from src.sql_client import SqlClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+
 methods = ('GET', 'POST')
+
 
 class Controller:
 
@@ -48,11 +50,12 @@ class Controller:
             new_tricount_id = request.form.get("tricount_id")
             if new_tricount_id is None:
                 return "Missing tricount_id param", 400
-            existing_tricount = self.sql_client.get_existing_tricount_uuids()
+            existing_tricount = self.sql_client.get_existing_tricounts()
             if len(existing_tricount) >= self.tricount_nb_threshold:
                 return "Tricount threshold reached", 400
-            if new_tricount_id in existing_tricount:
-                return "Tricount already imported", 409
+            for tr in existing_tricount:
+                if tr.tr_id == new_tricount_id:
+                    return "Tricount already imported", 409
             try:
                 new_tr = self.api_client.get_tricount_model(new_tricount_id)
             except Exception as e:
@@ -66,11 +69,11 @@ class Controller:
             if self.auth.current_user() != "admin":
                 return "Insufficient permissions", 403
 
-            _tricount_id\
+            _tricount_id \
                 = request.form.get("tricount_id")
             if _tricount_id is None:
                 return "Missing tricount_id param", 400
-            existing_tricount = self.sql_client.get_existing_tricount_uuids()
+            existing_tricount = self.sql_client.get_existing_tricount_ids()
             if _tricount_id not in existing_tricount:
                 return "Tricount not imported", 409
             self.sql_client.delete_tricount(_tricount_id)

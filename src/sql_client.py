@@ -197,7 +197,7 @@ class SqlClient:
                 if impact.user not in sql_impacts:
                     self.__create_impact(expense.uuid, impact.user, impact.amount_tr_currency)
 
-    def get_existing_tricount_uuids(self):
+    def get_existing_tricount_ids(self):
         cur = self.conn.cursor()
         cur.execute(GET_ALL_TRICOUNT_BY_UUID)
         sql_res = cur.fetchall()
