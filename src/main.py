@@ -52,7 +52,7 @@ def main():
     args = parser.parse_args()
     api_client = ApiClient()
     sql_client = SqlClient(args.db_hostname, args.db_user, args.db_password, args.db_name, args.db_port)
-    Scheduler(sql_client, api_client)
+    Scheduler(sql_client, api_client, args.refresh_rate)
     Controller(args.self_port, api_client, sql_client, args.tricount_max_nb, args.user_password, args.admin_password, args.refresh_rate)
 
 
