@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask, request, render_template
 from flask_httpauth import HTTPBasicAuth
 from src.apli_client import ApiClient
@@ -61,6 +63,7 @@ class Controller:
             except Exception as e:
                 return "Tricount id invalid (or tricount API down)", 404
             self.sql_client.sync_tricount(new_tr)
+            logging.info(f"Added new tricount {new_tr.title}, {new_tr.tr_id}")
             return "K bro", 200
 
         @self.app.route("/remove_tricount", methods=["POST"])
@@ -76,5 +79,6 @@ class Controller:
             for tr in existing_tricounts:
                 if tr.tr_id == _tricount_id:
                     self.sql_client.delete_tricount(tr.uuid)
+                    logging.info(f"Removed tricount {tr.title}, {tr.tr_id}")
                     return "K bro", 200
             return "Tricount not imported", 409
